@@ -52,4 +52,24 @@ test_odd () {
     echo "pass"
 }
 
+test_sequence () {
+    echo "Test collatz sequency stops at 1."
+    _check_file_exists
+
+    test=(1 2 3 4 5 6 20)
+    expected=("" "1" "10 5 16 8 4 2 1" "2 1" "16 8 4 2 1" "3 10 5 16 8 4 2 1" "10 5 16 8 4 2 1")
+
+    for i in "${!test[@]}"; do
+        result=$(echo -e "${test[$i]}\n" | python collatzsequence.py)
+        if [[ "$result" != *"$expected" ]]; then
+            echo "Sequences not generated as expected."
+            echo "fail"
+            exit 1
+        fi
+    done
+
+    echo "Squences correctly generated."
+    echo "pass"
+}
+
 "$@"
