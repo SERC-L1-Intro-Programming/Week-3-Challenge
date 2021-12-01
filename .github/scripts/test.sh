@@ -60,12 +60,11 @@ test_sequence () {
     expected=("" "1" "10 5 16 8 4 2 1" "2 1" "16 8 4 2 1" "3 10 5 16 8 4 2 1" "10 5 16 8 4 2 1")
 
     for i in "${!test[@]}"; do
-        result=$(echo -e "${test[$i]}\n" | python collatzsequence.py | sed 's|.*[^0-9]||g')
-        echo $result
-        if [[ "$result" != *"${expected[$i]}" ]]; then
+        result=$(echo -e "${test[$i]}\n" | python collatzsequence.py | sed 's|.*[^0-9]||g'| xargs)
+        if [[ "$result" != "${expected[$i]}" ]]; then
             echo "Sequences not generated as expected."
             echo "fail"
-            # exit 1
+            exit 1
         fi
     done
 
