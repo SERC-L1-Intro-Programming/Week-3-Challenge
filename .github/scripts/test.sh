@@ -72,7 +72,7 @@ test_sequence () {
     echo "pass"
 }
 
-test_error_handling () {
+test_input_error_handling () {
     echo "Test non-integers handled."
     _check_file_exists
 
@@ -81,19 +81,16 @@ test_error_handling () {
 
     for i in "${!test[@]}"; do
         result=$(echo -e "${test[$i]}\n1" | python collatzsequence.py)
+        echo $result
         if [[ "$result" != *"$expected" ]]; then
-            echo "Sequences not generated as expected."
+            echo "Input errors not handled as expected."
             echo "fail"
             exit 1
         fi
     done
 
-    echo "Squences correctly generated."
+    echo "Input errors handled correctly."
     echo "pass"
-    
-
-    echo $result
-
 }
 
 "$@"

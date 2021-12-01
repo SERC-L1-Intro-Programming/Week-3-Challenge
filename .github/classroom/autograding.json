@@ -39,6 +39,16 @@
       "comparison": "included",
       "timeout": 5,
       "points": 5
+    },
+    {
+      "name": "Input error handling",
+      "setup": "",
+      "run": "/bin/bash .github/scripts/test.sh test_input_error_handling",
+      "input": "",
+      "output": "pass",
+      "comparison": "included",
+      "timeout": 5,
+      "points": 5
     }
   ]
 }
