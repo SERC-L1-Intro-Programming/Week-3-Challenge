@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/bash
 
 CHALLENGEFILE=collatzsequence.py
 
@@ -20,7 +20,7 @@ test_even () {
     rm -f testeven.py
     cp .github/scripts/testeven.py testeven.py
 
-    result=$(echo -e "1\n" | python testeven.py)
+    result=$(echo -e "1\n" | python testeven.py 2>&1)
 
     expected_no_function="ImportError: cannot import name 'collatz' from 'collatzsequence'"
     if [[ "$result" == *"$expected_no_function"* ]]; then
@@ -47,7 +47,7 @@ test_odd () {
     rm -f testodd.py
     cp .github/scripts/testodd.py testodd.py
 
-    result=$(echo -e "1\n" | python testodd.py)
+    result=$(echo -e "1\n" | python testodd.py 2>&1)
 
     expected_no_function="ImportError: cannot import name 'collatz' from 'collatzsequence'"
     if [[ "$result" == *"$expected_no_function"* ]]; then
