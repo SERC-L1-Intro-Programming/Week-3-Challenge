@@ -22,6 +22,13 @@ test_even () {
 
     result=$(echo -e "1\n" | python testeven.py)
 
+    expected_no_function="ImportError: cannot import name 'collatz' from 'collatzsequence'"
+    if [[ "$result" == *"$expected_no_function"* ]]; then
+        echo "Collatz function not found."
+        echo "fail"
+        exit 1
+    fi
+
     if [[ "$result" == *"fail" ]]; then
         echo "Even numbers not divided as expected."
         echo "fail"
@@ -41,6 +48,13 @@ test_odd () {
     cp .github/scripts/testodd.py testodd.py
 
     result=$(echo -e "1\n" | python testodd.py)
+
+    expected_no_function="ImportError: cannot import name 'collatz' from 'collatzsequence'"
+    if [[ "$result" == *"$expected_no_function"* ]]; then
+        echo "Collatz function not found."
+        echo "fail"
+        exit 1
+    fi
 
     if [[ "$result" == *"fail" ]]; then
         echo "Odd numbers not multiplied and increased as expected."
