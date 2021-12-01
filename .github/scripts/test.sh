@@ -60,7 +60,28 @@ test_sequence () {
     expected=("" "1" "10 5 16 8 4 2 1" "2 1" "16 8 4 2 1" "3 10 5 16 8 4 2 1" "10 5 16 8 4 2 1")
 
     for i in "${!test[@]}"; do
-        result=$(echo -e "${test[$i]}\n" | python collatzsequence.py)
+        result=$(echo -e "${test[$i]}\n" | python collatzsequence.py | sed 's|.*[^0-9]||g')
+        echo $result
+        if [[ "$result" != *"${expected[$i]}" ]]; then
+            echo "Sequences not generated as expected."
+            echo "fail"
+            # exit 1
+        fi
+    done
+
+    echo "Sequences correctly generated."
+    echo "pass"
+}
+
+test_error_handling () {
+    echo "Test non-integers handled."
+    _check_file_exists
+
+    test=("1.3" "puppy" "spam")
+    expected="That was not an integer. Enter an integer number: "
+
+    for i in "${!test[@]}"; do
+        result=$(echo -e "${test[$i]}\n1" | python collatzsequence.py)
         if [[ "$result" != *"$expected" ]]; then
             echo "Sequences not generated as expected."
             echo "fail"
@@ -70,6 +91,10 @@ test_sequence () {
 
     echo "Squences correctly generated."
     echo "pass"
+    
+
+    echo $result
+
 }
 
 "$@"
