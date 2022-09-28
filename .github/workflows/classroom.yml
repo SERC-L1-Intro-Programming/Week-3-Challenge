@@ -52,7 +52,7 @@ jobs:
       - name: points bar
         uses: markpatterson27/points-bar@v1
         with:
-          points: ${{ needs.build.outputs.grading-score }}
+          points: ${{ needs.grade.outputs.grading-score }}
           path: '.github/activity-icons/points-bar.svg'
 
       # commit and push activity icons if statuses have changed
